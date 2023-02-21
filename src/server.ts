@@ -39,8 +39,18 @@ app.post("/api/planets", (req, res)=> {
   console.log(planets);
 
   res.status(201).json({msg: "Planet was created"});
-
 });
+
+app.post("/api/planets/:id", (req, res) => {
+  const {id} = req.params ;
+  const {name} = req.body ;
+
+  planets = planets.map(p => p.id === Number(id) ? {...p, name}: p);
+
+  console.log(planets);
+
+  res.status(200).json({msg: "Planet was updated"});
+})
 
 app.listen(port, () =>
   console.log(`Example App Listening on port http://localhost:${port}`)
