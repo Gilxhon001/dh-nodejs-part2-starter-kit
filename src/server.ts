@@ -5,11 +5,11 @@ import dotenv from "dotenv";
 
 const app = express();
 
-dotenv.config();
-
-const port = process.env.PORT || 3000;
-
+app.use(express.json());
 app.use(morgan("dev"));
+
+dotenv.config();
+const port = process.env.PORT || 3000;
 
 type Planet = {
   id: number;
@@ -23,14 +23,23 @@ let planets = [
   { id: 2, name: "Mars" },
 ];
 
-app.get("/api/planets", function(req, res) {
-  res.status(200).json(planets);
-});
+app.get("/api/planets", (req, res) =>  res.status(200).json(planets));
 
 app.get("/api/planets/:id", function(req, res) {
   const { id } = req.params;
   const planet = planets.find((p) => p.id === Number(id));
   res.status(200).json(planet);
+});
+
+app.post("/api/planets", (req, res)=> {
+  const {id, name} = req.body ;
+  const newPlanet = {id, name} ;
+  planets = [...planets, newPlanet] ;
+
+  console.log(planets);
+
+  res.status(201).json({msg: "Planet was created"});
+
 });
 
 app.listen(port, () =>
