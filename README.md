@@ -23,23 +23,33 @@ CREATE TABLE planets(
 
   - GET /planets
      - Use this SQL query:
+       ```sql
        SELECT * FROM planets;
+       ```
 
   - GET /planets/:id
     - Use this SQL query:
+      ```sql
       SELECT * FROM planets WHERE id=$1;
+      ```
     - Make sure that $1 is id.
   - POST /planets
     - Use this SQL query:
+      ```sql
       INSERT INTO planets (name) VALUES ($1);
+      ```
     - Make sure that $1 is name.
   - PUT /planets/:id
     - Use this SQL query:
+      ```sql
       UPDATE planets SET name=$2 WHERE id=$1;
+      ```
     - Make sure that $1 is id and $2 is name.
   - DELETE /planets/:id
     - Use this SQL query:
+      ```sql
       DELETE FROM planets WHERE id=$1;
+      ```
     - Make sure that $1 is id.
 
 ## Check
