@@ -13,6 +13,8 @@ import {
 
 import multer from "multer";
 
+import {logIn} from"./controllers/users.js";
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads")
@@ -37,7 +39,10 @@ app.post("/api/planets", create);
 app.put("/api/planets/:id", updateById);
 app.delete("/api/planets/:id", deleteById);
 
-app.post("/api/planets/:id/image", upload.single("image"), createImage)
+app.post("/api/planets/:id/image", upload.single("image"), createImage);
+
+app.post("/api/users/login", logIn);
+
 
 app.listen(port, () =>
   console.log(`Example App Listening on port http://localhost:${port}`)
