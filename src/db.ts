@@ -22,6 +22,7 @@ const setupDb = async () => {
     token TEXT
   );
 
+
   `);
 
   //Inserting some planets
