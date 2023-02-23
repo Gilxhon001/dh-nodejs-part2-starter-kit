@@ -1,20 +1,22 @@
-# Exercise 7, JWT Auth part 2
+# Exercise 8, JWT Auth part 3
 ## Do
-- Create routes:
-  - POST /users/signup: create user in DB.
-    - Store user with username and password keys in the DB.
-      - If successful, respond with JSON {msg: "Signup successful. Now you can log in."}.
-  - POST /users/login: log user in (adds JWT to user in DB).
-    - Check that a provided password and the password in the DB match.
-      - If they don't, respond with an error.
-      - If they do, respond with token (JWT), id and username
+- Create route:
+  - GET /users/logout: log user out (removes JWT from user in DB).
+- Create authorize middleware and use it in routes that require it (protected routes).
+- Restrict file upload of planet images to users.
 
 ## Use
-- req.body in both routes
-- jsonwebtoken package
-- jwt.sign to sign a token with:
-  - payload (with id (user id) and username)
-  - secret (from .env)
+- SQL query:
+```sql
+  UPDATE users
+  SET token=NULL
+  WHERE id=$1;
+```
+  - Make sure that $1 is the user's id
+
+- passport.authenticate() in authorize function
+  - set session to false in passport.authetnicate (2nd param)
+  - when successful, do: req.user = user (user comes from (err, user) cb func that passport.authenticate provides (3rd param))
 
 ## Check
 - Use Postman to test the routes.
