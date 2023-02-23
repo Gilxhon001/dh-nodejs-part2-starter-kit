@@ -13,7 +13,9 @@ import {
 
 import multer from "multer";
 
-import {logIn, signUp} from"./controllers/users.js";
+import {logIn, signUp, logOut} from"./controllers/users.js";
+import authorize from "./authorize.js";
+import "./passport.js"
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -43,6 +45,8 @@ app.post("/api/planets/:id/image", upload.single("image"), createImage);
 
 app.post("/api/users/login", logIn);
 app.post("/api/users/signup", signUp);
+app.post("/api/users/logout", authorize, logOut);
+
 
 
 
