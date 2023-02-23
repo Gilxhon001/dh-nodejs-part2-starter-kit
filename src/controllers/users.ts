@@ -45,4 +45,11 @@ const signUp = async (req: Request, res: Response) => {
   }
 };
 
-export { logIn, signUp };
+const logOut = async (req: Request, res: Response) => {
+    const user: any = req.user;
+    await db.none(`UPDATE users SET token=$2 WHERE id=$1`, [user?.id, null]);
+    res.status(201).json({ msg: "Log Out Successful" });
+
+}
+
+export { logIn, signUp, logOut };
