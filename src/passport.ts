@@ -12,6 +12,7 @@ passport.use(
       secretOrKey: SECRET,
       jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
     },
+
     async (payload, done) => {
         const user = db.one(`SELECT * FROM users WHERE id=$1`, payload.id)
         console.log(user);
@@ -21,7 +22,6 @@ passport.use(
         } catch(error) {
             done(error)
         }
-
     }
   )
 );
