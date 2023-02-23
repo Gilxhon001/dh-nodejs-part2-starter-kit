@@ -1,34 +1,6 @@
 import { Request, Response } from "express";
 import Joi from "joi";
-import pgPromise from "pg-promise";
-
-//Database Connection
-const db = pgPromise()("postgres://postgres:1234@localhost:5432/video");
-
-//Database SetUp
-const setupDb = async () => {
-  //Creating a new Table
-  await db.none(`
-  DROP TABLE IF EXISTS planets;
-
-  CREATE TABLE planets(
-    id SERIAL NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL,
-    image TEXT
-  );
-  `);
-
-  //Inserting some planets
-  await db.none(`INSERT INTO planets (name) VALUES ('Earth')`);
-  await db.none(`INSERT INTO planets (name) VALUES ('Mars')`);
-  await db.none(`INSERT INTO planets (name) VALUES ('Pluto')`);
-
-  const planets = await db.many(`SELECT * FROM planets;`);
-  console.log(planets);
-};
-
-//Calling the function
-setupDb();
+import {db} from "../db.js"
 
 const planetSchema = Joi.object({
   id: Joi.number().required(),
